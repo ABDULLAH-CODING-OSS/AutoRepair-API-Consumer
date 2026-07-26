@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Auto Repair ERP</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+
+<!-- ── Sidebar ─────────────────────────────────────────────────── -->
+<nav id="sidebar">
+    <a class="sidebar-brand" asp-controller="Dashboard" asp-action="Index">
+        <div class="brand-icon">🔧</div>
+        <div>
+            <div class="brand-name">AutoRepair ERP</div>
+            <div class="brand-sub">Management Console</div>
+        </div>
+    </a>
+
+    <div class="sidebar-nav">
+        <div class="sidebar-section">Main</div>
+        <a href="/Dashboard"><span class="nav-icon"><i class="bi bi-speedometer2"></i></span> Dashboard</a>
+
+        <div class="sidebar-section">Customers & Vehicles</div>
+        <a href="/Customers"><span class="nav-icon"><i class="bi bi-people"></i></span> Customers</a>
+        <a href="/Vehicles"><span class="nav-icon"><i class="bi bi-car-front"></i></span> Vehicles</a>
+
+        <div class="sidebar-section">Catalogue</div>
+        <a href="/Categories"><span class="nav-icon"><i class="bi bi-tags"></i></span> Categories</a>
+        <a href="/Services"><span class="nav-icon"><i class="bi bi-tools"></i></span> Services</a>
+        <a href="/Parts"><span class="nav-icon"><i class="bi bi-box-seam"></i></span> Parts</a>
+    </div>
+
+    <div class="sidebar-footer">
+        <i class="bi bi-circle-fill text-success" style="font-size:.55rem"></i>
+        &nbsp;ERP Client v1.0
+    </div>
+</nav>
+
+<!-- ── Main Wrapper ──────────────────────────────────────────────── -->
+<div id="main-wrapper">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <button id="sidebar-toggle" class="btn btn-sm d-md-none border-0 me-2">
+            <i class="bi bi-list fs-5"></i>
+        </button>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @if (ViewData["BreadcrumbParent"] != null)
+                {
+                    <li class="breadcrumb-item">
+                        <a href="/@ViewData["BreadcrumbParent"]">@ViewData["BreadcrumbParent"]</a>
+                    </li>
+                }
+                <li class="breadcrumb-item active">@(ViewData["Title"] ?? "Dashboard")</li>
+            </ol>
+        </nav>
+        <div class="topbar-spacer"></div>
+        <div class="topbar-badge" title="ERP Console">EC</div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast erp-toast toast-success align-items-center" role="alert" aria-live="assertive">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="bi bi-check-circle me-2"></i>@TempData["SuccessMessage"]</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="toast erp-toast toast-error align-items-center" role="alert" aria-live="assertive">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="bi bi-exclamation-circle me-2"></i>@TempData["ErrorMessage"]</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Page Content -->
+    <main class="page-content">
+        @RenderBody()
+    </main>
+
+    <footer class="text-muted text-center py-3" style="font-size:.78rem;border-top:1px solid #edf2f7;">
+        &copy; @DateTime.Now.Year Auto Repair ERP &mdash; Client Console
+    </footer>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,42 @@
+@model IEnumerable<ERP_Consumer.DTOs.Categories.CategoryDto>
+@{ ViewData["Title"] = "Categories"; ViewData["BreadcrumbParent"] = "Dashboard"; }
+<div class="page-header">
+    <h1><i class="bi bi-tags me-2" style="color:#d69e2e;"></i>Categories</h1>
+    <a asp-action="Create" class="btn btn-erp-primary"><i class="bi bi-tag me-1"></i>New Category</a>
+</div>
+<div class="erp-card">
+    <div class="card-header">
+        <h5>All Categories</h5>
+        <form method="get" class="search-form">
+            <input type="text" name="search" value="@ViewBag.Search" class="form-control form-control-sm" placeholder="Search…" />
+            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-search"></i></button>
+            @if (!string.IsNullOrEmpty(ViewBag.Search as string)) { <a asp-action="Index" class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></a> }
+        </form>
+    </div>
+    <div class="card-body">
+        @if (!Model.Any())
+        { <div class="empty-state"><div class="empty-icon">🏷️</div><p>No categories found. <a asp-action="Create">Add the first one.</a></p></div> }
+        else
+        {
+            <table class="erp-table">
+                <thead><tr><th>#</th><th>Name</th><th>Description</th><th>Created</th><th>Actions</th></tr></thead>
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        <tr>
+                            <td class="text-muted">@c.Id</td>
+                            <td><strong>@c.Name</strong></td>
+                            <td>@(c.Description ?? "—")</td>
+                            <td class="text-muted">@c.CreatedAt.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@c.Id" class="btn btn-sm btn-outline-secondary btn-action"><i class="bi bi-eye"></i></a>
+                                <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-outline-primary btn-action"><i class="bi bi-pencil"></i></a>
+                                <a asp-action="Delete" asp-route-id="@c.Id" class="btn btn-sm btn-outline-danger btn-action"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

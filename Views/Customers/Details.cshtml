@@ -1,0 +1,23 @@
+@model ERP_Consumer.DTOs.Customers.CustomerDto
+@{
+    ViewData["Title"] = "Customer Details";
+    ViewData["BreadcrumbParent"] = "Customers";
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-person-lines-fill me-2" style="color:#3182ce;"></i>Customer Details</h1>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-erp-primary"><i class="bi bi-pencil me-1"></i>Edit</a>
+        <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
+    </div>
+</div>
+
+<div class="detail-card">
+    <div class="detail-row"><span class="detail-label">ID</span><span class="detail-value">@Model.CustomerId</span></div>
+    <div class="detail-row"><span class="detail-label">Full Name</span><span class="detail-value"><strong>@Model.FullName</strong></span></div>
+    <div class="detail-row"><span class="detail-label">Phone</span><span class="detail-value">@Model.Phone</span></div>
+    <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">@(Model.Email ?? "—")</span></div>
+    <div class="detail-row"><span class="detail-label">City</span><span class="detail-value">@(Model.City ?? "—")</span></div>
+    <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value">@(Model.Address ?? "—")</span></div>
+    <div class="detail-row"><span class="detail-label">Registered</span><span class="detail-value">@Model.CreatedAt.ToString("dd MMMM yyyy HH:mm")</span></div>
+</div>

@@ -1,0 +1,67 @@
+@model IEnumerable<ERP_Consumer.DTOs.Customers.CustomerDto>
+@{
+    ViewData["Title"] = "Customers";
+    ViewData["BreadcrumbParent"] = "Dashboard";
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-people me-2" style="color:#3182ce;"></i>Customers</h1>
+    <a asp-action="Create" class="btn btn-erp-primary"><i class="bi bi-person-plus me-1"></i>New Customer</a>
+</div>
+
+<div class="erp-card">
+    <div class="card-header">
+        <h5>All Customers</h5>
+        <form method="get" class="search-form">
+            <input type="text" name="search" value="@ViewBag.Search" class="form-control form-control-sm" placeholder="Search name, email, phone…" />
+            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-search"></i></button>
+            @if (!string.IsNullOrEmpty(ViewBag.Search as string))
+            {
+                <a asp-action="Index" class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></a>
+            }
+        </form>
+    </div>
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-icon">👤</div>
+                <p>No customers found. <a asp-action="Create">Add the first one.</a></p>
+            </div>
+        }
+        else
+        {
+            <table class="erp-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Created</th>
+                        <th style="width:120px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        <tr>
+                            <td class="text-muted">@c.Id</td>
+                            <td><strong>@c.FullName</strong></td>
+                            <td>@c.Email</td>
+                            <td>@c.Phone</td>
+                            <td>@(c.Address ?? "—")</td>
+                            <td class="text-muted">@c.CreatedAt.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@c.Id" class="btn btn-sm btn-outline-secondary btn-action" title="View"><i class="bi bi-eye"></i></a>
+                                <a asp-action="Edit" asp-route-id="@c.Id" class="btn btn-sm btn-outline-primary btn-action" title="Edit"><i class="bi bi-pencil"></i></a>
+                                <a asp-action="Delete" asp-route-id="@c.Id" class="btn btn-sm btn-outline-danger btn-action" title="Delete"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

@@ -1,0 +1,111 @@
+@model ERP_Consumer.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h1><i class="bi bi-speedometer2 me-2 text-primary"></i>Dashboard</h1>
+    <span class="text-muted" style="font-size:.85rem;"><i class="bi bi-clock me-1"></i>@DateTime.Now.ToString("dddd, dd MMMM yyyy")</span>
+</div>
+
+@if (!Model.ApiOnline)
+{
+    <div class="api-offline-banner">
+        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+        <div>
+            <strong>ERP Backend Unreachable</strong> &mdash;
+            Some data could not be loaded. Please verify the backend service is running at the configured URL.
+        </div>
+    </div>
+}
+
+<!-- Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-4">
+        <a href="/Customers" class="stat-card text-decoration-none d-flex">
+            <div class="stat-icon icon-customers"><i class="bi bi-people-fill"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalCustomers</div>
+                <div class="stat-label">Total Customers</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <a href="/Vehicles" class="stat-card text-decoration-none d-flex">
+            <div class="stat-icon icon-vehicles"><i class="bi bi-car-front-fill"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalVehicles</div>
+                <div class="stat-label">Registered Vehicles</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <a href="/Categories" class="stat-card text-decoration-none d-flex">
+            <div class="stat-icon icon-categories"><i class="bi bi-tags-fill"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalCategories</div>
+                <div class="stat-label">Service Categories</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <a href="/Services" class="stat-card text-decoration-none d-flex">
+            <div class="stat-icon icon-services"><i class="bi bi-tools"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalServices</div>
+                <div class="stat-label">Services Available</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-xl-4">
+        <a href="/Parts" class="stat-card text-decoration-none d-flex">
+            <div class="stat-icon icon-parts"><i class="bi bi-box-seam-fill"></i></div>
+            <div>
+                <div class="stat-value">@Model.TotalParts</div>
+                <div class="stat-label">Parts in Catalogue</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- Quick Access -->
+<div class="erp-card">
+    <div class="card-header">
+        <h5><i class="bi bi-lightning-charge me-2 text-warning"></i>Quick Actions</h5>
+    </div>
+    <div class="card-body p-4">
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/Customers/Create" class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3 gap-1" style="border-radius:10px;">
+                    <i class="bi bi-person-plus fs-4"></i>
+                    <span style="font-size:.8rem;">New Customer</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/Vehicles/Create" class="btn btn-outline-success w-100 d-flex flex-column align-items-center py-3 gap-1" style="border-radius:10px;">
+                    <i class="bi bi-plus-circle fs-4"></i>
+                    <span style="font-size:.8rem;">Add Vehicle</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/Categories/Create" class="btn btn-outline-warning w-100 d-flex flex-column align-items-center py-3 gap-1" style="border-radius:10px;">
+                    <i class="bi bi-tag fs-4"></i>
+                    <span style="font-size:.8rem;">Add Category</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/Services/Create" class="btn btn-outline-purple w-100 d-flex flex-column align-items-center py-3 gap-1" style="border-radius:10px;border-color:#805ad5;color:#805ad5;">
+                    <i class="bi bi-hammer fs-4"></i>
+                    <span style="font-size:.8rem;">New Service</span>
+                </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <a href="/Parts/Create" class="btn btn-outline-danger w-100 d-flex flex-column align-items-center py-3 gap-1" style="border-radius:10px;">
+                    <i class="bi bi-box-seam fs-4"></i>
+                    <span style="font-size:.8rem;">Add Part</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
